@@ -16,5 +16,6 @@ public interface IPetService {
     Pet getPetByTipo(String tipo);
     Pet getPetByEspecie(String especie);
     Pet getPetByIdade(String idade);
+    Pet getPetByStatus(String status);
 
 }

@@ -5,10 +5,12 @@ import com.nzuzi.joao.petshop.repo.PetRepo;
 import com.nzuzi.joao.petshop.service.IPetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+@Service
 public class PetSeviceImpl implements IPetService {
 
     @Autowired
@@ -74,11 +76,16 @@ public class PetSeviceImpl implements IPetService {
 
     @Override
     public Pet getPetByEspecie(String especie){
-        return repository.getPetByTipo(especie).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pets da espécie "+especie+" não encontrado"));
+        return repository.getPetByEspecie(especie).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pets da espécie "+especie+" não encontrado"));
     }
 
     @Override
     public Pet getPetByIdade(String idade) {
-        return repository.getPetByTipo(idade).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pets com idade "+idade+" não encontrado"));
+        return repository.getPetByIdade(idade).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pets com idade "+idade+" não encontrado"));
+    }
+
+    @Override
+    public Pet getPetByStatus(String status) {
+        return repository.getPetByStatus(status).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pets com status "+status+" não encontrado"));
     }
 }

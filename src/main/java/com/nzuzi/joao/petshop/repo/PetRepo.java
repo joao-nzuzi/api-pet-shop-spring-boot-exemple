@@ -23,4 +23,7 @@ public interface PetRepo extends JpaRepository<Pet, Long> {
 
     @Query(value = "select * from pet where idade = :idade", nativeQuery = true)
     Optional<Pet> getPetByIdade(String idade);
+
+    @Query(value = "select * from pet where status = :status", nativeQuery = true)
+    Optional<Pet> getPetByStatus(String status);
 }
