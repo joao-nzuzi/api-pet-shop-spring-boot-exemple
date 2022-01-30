@@ -2,6 +2,7 @@ package com.nzuzi.joao.petshop.entity;
 
 import com.nzuzi.joao.petshop.enums.Especie;
 import com.nzuzi.joao.petshop.enums.Genero;
+import com.nzuzi.joao.petshop.enums.Status;
 import com.nzuzi.joao.petshop.enums.Tipo;
 import lombok.Data;
 
@@ -25,4 +26,8 @@ public class Pet {
     private Genero genero;
     @Column(nullable = false)
     private Especie especie;
+    @Column(nullable = false)
+    private Status status;
+    @Column(nullable = false)
+    private double preco;
 }
