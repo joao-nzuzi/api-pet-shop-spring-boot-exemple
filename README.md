@@ -17,16 +17,19 @@ Para construção deste projecto foi usado as seguintes ferramentas:
 
   - IntelliJ;
   - Spring Framework;
-  - H2 - Como base e dados
+  - H2 - Como base de dados em memória;
   - Postman - para execução dos testes de verificação;
   - Git/GitHub para versionamento.
 
 # Execução do Projecto
 Para executar o projecto no terminal (do IntelliJ), basta rodar o camando abaixo:
-[x] mvn spring-boot:run
+  - [x] mvn spring-boot:run
 
-Após a execução do projecto no terminal, digita o seguinte comando no browser:
-[x] http://localhost:8080/api/v1/petshop/
+Após a execução do projecto no terminal, digita o seguinte endereço no browser:
+  - [x] http://localhost:8080/api/v1/petshop/
+
+Para aceder a documentação da api via swagger, digita no browser o seguinte endereço:
+  - [x] http://localhost:8080/swagger-ui.html
 
 # Pré-requisitos
 São necessários os seguintes pré-requisitos para o desenvolvimento e execução do projecto:
