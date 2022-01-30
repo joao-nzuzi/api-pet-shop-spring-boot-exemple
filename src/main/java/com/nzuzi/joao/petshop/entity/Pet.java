@@ -1,18 +1,28 @@
 package com.nzuzi.joao.petshop.entity;
 
+import com.nzuzi.joao.petshop.enums.Especie;
 import com.nzuzi.joao.petshop.enums.Genero;
 import com.nzuzi.joao.petshop.enums.Tipo;
-import lombok.Builder;
 import lombok.Data;
 
+import javax.persistence.*;
+
 @Data
-@Builder
+@Entity
 public class Pet {
 
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String nome;
+    @Column(nullable = false)
     private String idade;
+    @Column(nullable = false)
     private String cor;
+    @Column(nullable = false)
     private Tipo tipo;
+    @Column(nullable = false)
     private Genero genero;
+    @Column(nullable = false)
+    private Especie especie;
 }
