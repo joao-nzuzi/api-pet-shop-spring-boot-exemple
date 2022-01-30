@@ -10,20 +10,23 @@ import java.util.Optional;
 public interface PetRepo extends JpaRepository<Pet, Long> {
 
     @Query(value = "select * from pet where nome = :nome", nativeQuery = true)
-    Optional<Pet> getPetByName(String nome);
+    List<Pet> getPetByName(String nome);
 
     @Query(value = "select * from pet where genero = :genero", nativeQuery = true)
-    Optional<Pet> getPetByGenero(String genero);
+    List<Pet> getPetByGenero(String genero);
 
     @Query(value = "select * from pet where tipo = :tipo", nativeQuery = true)
-    Optional<Pet> getPetByTipo(String tipo);
+    List<Pet> getPetByTipo(String tipo);
 
     @Query(value = "select * from pet where especie = :especie", nativeQuery = true)
-    Optional<Pet> getPetByEspecie(String especie);
+    List<Pet> getPetByEspecie(String especie);
 
     @Query(value = "select * from pet where idade = :idade", nativeQuery = true)
-    Optional<Pet> getPetByIdade(String idade);
+    List<Pet> getPetByIdade(String idade);
 
     @Query(value = "select * from pet where status = :status", nativeQuery = true)
-    Optional<Pet> getPetByStatus(String status);
+    List<Pet> getPetByStatus(String status);
+
+    @Query(value = "select * from pet where raca = :raca", nativeQuery = true)
+    List<Pet> getPetByRaca(String raca);
 }

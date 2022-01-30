@@ -32,37 +32,42 @@ public class PetController{
     }
 
     @GetMapping("/{id}")
-    public Pet getPetById(@PathVariable Long id) {
+    public Pet getPetById(@PathVariable("id") Long id) {
         return service.getPetById(id);
     }
 
-    @GetMapping("/{nome}")
-    public Pet getPetByName(@PathVariable String nome) {
+    @GetMapping("/find_by_name/{nome}")
+    public List<Pet> getPetByName(@PathVariable String nome) {
         return service.getPetByName(nome);
     }
 
-    @GetMapping("/{genero}")
-    public Pet getPetByGenero(String genero) {
+    @GetMapping("/find_by_genero/{genero}")
+    public List<Pet> getPetByGenero(@PathVariable String genero) {
         return service.getPetByGenero(genero);
     }
 
-    @GetMapping("/{tipo}")
-    public Pet getPetByTipo(String tipo) {
+    @GetMapping("/find_by_tipo/{tipo}")
+    public List<Pet> getPetByTipo(@PathVariable String tipo) {
         return service.getPetByTipo(tipo);
     }
 
-    @GetMapping("/{especie}")
-    public Pet getPetByEspecie(String especie) {
+    @GetMapping("/find_by_especie/{especie}")
+    public List<Pet> getPetByEspecie(@PathVariable String especie) {
         return service.getPetByEspecie(especie);
     }
 
-    @GetMapping("/{idade}")
-    public Pet getPetByIdade(String idade) {
+    @GetMapping("/find_by_idade/{idade}")
+    public List<Pet> getPetByIdade(@PathVariable String idade) {
         return service.getPetByIdade(idade);
     }
 
-    @GetMapping("/{status}")
-    public Pet getPetByStatus(String status) {
+    @GetMapping("/find_by_status/{status}")
+    public List<Pet> getPetByStatus(@PathVariable String status) {
         return service.getPetByStatus(status);
+    }
+
+    @GetMapping("/find_by_raca/{raca}")
+    public List<Pet> getPetByRaca(@PathVariable String raca) {
+        return service.getPetByRaca(raca);
     }
 }

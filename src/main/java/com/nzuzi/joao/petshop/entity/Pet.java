@@ -17,6 +17,8 @@ public class Pet {
     @Column(nullable = false)
     private String nome;
     @Column(nullable = false)
+    private String raca;
+    @Column(nullable = false)
     private String idade;
     @Column(nullable = false)
     private String cor;
