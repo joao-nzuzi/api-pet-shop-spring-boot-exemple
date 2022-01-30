@@ -5,7 +5,7 @@ Este projecto visa, usando o framework Spring Boot, construir uma API Pet Shop o
   - Idade;
   - Raça;
   - Tipo;
-  - Gênero (Masculino/Feminino).
+  - Gênero (Macho/Fêmea).
  
  Para fazermos isso faremos o uso correcto dos 3 verbos HTTP, a saber:
   - **GET** - Para fazer uma busca;
