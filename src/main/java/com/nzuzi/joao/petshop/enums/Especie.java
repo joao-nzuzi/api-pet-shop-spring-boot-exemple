@@ -1,5 +1,10 @@
 package com.nzuzi.joao.petshop.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum Especie {
     MAMIFERO("Mamífero"),
     AVE("Ave"),
@@ -8,9 +13,6 @@ public enum Especie {
     PEIXE("Peixe"),
     INVERTEBRADO("Invertebrado");
 
-    private String descricao;
+    private final String descricao;
 
-    Especie(String descricao) {
-        this.descricao = descricao;
-    }
 }

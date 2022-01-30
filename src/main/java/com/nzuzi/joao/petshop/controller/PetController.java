@@ -17,7 +17,7 @@ public class PetController{
     private PetSeviceImpl service;
 
     @PostMapping("/")
-    public ResponseStatusException cadastrar(@RequestBody @Validated Pet pet) {
+    public ResponseStatusException cadastrar(@RequestBody Pet pet) {
         return service.cadastrar(pet);
     }
 

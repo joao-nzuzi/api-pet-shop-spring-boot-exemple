@@ -20,13 +20,13 @@ public class Pet {
     private String idade;
     @Column(nullable = false)
     private String cor;
-    @Column(nullable = false)
+    @Column(nullable = false) @Enumerated(EnumType.STRING)
     private Tipo tipo;
-    @Column(nullable = false)
+    @Column(nullable = false) @Enumerated(EnumType.STRING)
     private Genero genero;
-    @Column(nullable = false)
+    @Column(nullable = false) @Enumerated(EnumType.STRING)
     private Especie especie;
-    @Column(nullable = false)
+    @Column(nullable = false) @Enumerated(EnumType.STRING)
     private Status status;
     @Column(nullable = false)
     private double preco;

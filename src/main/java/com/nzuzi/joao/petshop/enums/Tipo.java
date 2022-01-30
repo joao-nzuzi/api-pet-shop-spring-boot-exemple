@@ -1,5 +1,10 @@
 package com.nzuzi.joao.petshop.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum Tipo {
      CAO("Cão"),
      GATO("Gato"),
@@ -15,9 +20,6 @@ public enum Tipo {
      CAGADO("Cagado"),
      TARTARUGAS("Tartaruga");
 
-     private String descricao;
+     private final String descricao;
 
-    Tipo(String descricao) {
-        this.descricao = descricao;
-    }
 }
