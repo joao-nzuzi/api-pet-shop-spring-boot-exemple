@@ -3,12 +3,15 @@ package com.nzuzi.joao.petshop.service.impl;
 import com.nzuzi.joao.petshop.entity.Pet;
 import com.nzuzi.joao.petshop.repo.PetRepo;
 import com.nzuzi.joao.petshop.service.IPetService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PetSeviceImpl implements IPetService {
@@ -16,93 +19,117 @@ public class PetSeviceImpl implements IPetService {
     @Autowired
     private PetRepo repository;
 
+    Logger logger = LoggerFactory.getLogger(PetSeviceImpl.class);
+
     @Override
-    public ResponseStatusException cadastrar(Pet pet) {
+    public ResponseEntity<?> cadastrar(Pet pet) {
         repository.save(pet);
-        return new ResponseStatusException(HttpStatus.CREATED, "Pet Cadastrado Com Sucesso");
+        return new ResponseEntity<>("Pet Cadastrado Com Sucesso", HttpStatus.CREATED);
     }
 
     @Override
-    public ResponseStatusException update(Pet pet, Long id) {
+    public ResponseEntity<?> update(Pet pet, Long id) {
         try {
-            Pet novoPet = verificaSePetExiste(id);
-            novoPet.setCor(pet.getCor());
-            novoPet.setNome(pet.getNome());
-            novoPet.setIdade(pet.getIdade());
-            novoPet.setTipo(pet.getTipo());
-            novoPet.setEspecie(pet.getEspecie());
-            novoPet.setGenero(pet.getGenero());
-            repository.save(novoPet);
-            return new ResponseStatusException(HttpStatus.CREATED, "Pet com " + id + " atualizado com sucesso");
+            if(verificaSePetExiste(id).getStatusCodeValue() != 404) {
+                repository.save(pet);
+                return new ResponseEntity<>("Pet com id " + id + " atualizado com sucesso", HttpStatus.CREATED);
+            }
+            return new ResponseEntity<>("Pet com id " + id + " não encontrado", HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            return new ResponseStatusException(HttpStatus.NOT_FOUND, "Pet não encontrado", e);
+            logger.error("Pet não encontrado", e);
         }
+        return null;
     }
 
     @Override
-    public List<Pet> getAllPet() {
-        return repository.findAll();
+    public ResponseEntity<?> getAllPet() {
+        List<Pet> all = repository.findAll();
+        if(all.isEmpty()){
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("Nenhum pet encontrado");
+        }
+        return ResponseEntity.ok().body(all);
     }
 
     @Override
-    public Pet getPetById(Long id) {
+    public ResponseEntity<?> getPetById(Long id) {
         return verificaSePetExiste(id);
     }
 
-    private Pet verificaSePetExiste(Long id) {
-        return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pet não encontrado"));
+    private ResponseEntity<?> verificaSePetExiste(Long id) {
+        Optional<Pet> petExistente = repository.findById(id);
+        if(petExistente.isPresent()){
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(petExistente);
+        }
+        return new ResponseEntity<>("Pet não encontrado", HttpStatus.NOT_FOUND);
     }
 
 
     @Override
-    public List<Pet> getPetByName(String nome) {
-        if (repository.getPetByName(nome).isEmpty())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pet com o nome " + nome + " não encontrado");
-        return repository.getPetByName(nome);
+    public ResponseEntity<?> getPetByNome(String nome) {
+        if (repository.getPetByNome(nome).isEmpty())
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("Pet com o nome " + nome + " não encontrado");
+        return ResponseEntity.ok().body(repository.getPetByNome(nome));
     }
 
     @Override
-    public List<Pet> getPetByGenero(String genero) {
+    public ResponseEntity<?> getPetByGenero(String genero) {
         if(repository.getPetByGenero(genero).isEmpty())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pets com o gênero " + genero + " não encontrado");
-        return repository.getPetByGenero(genero);
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("Pets com o gênero " + genero + " não encontrado");
+        return ResponseEntity.ok().body(repository.getPetByGenero(genero));
     }
 
     @Override
-    public List<Pet> getPetByTipo(String tipo) {
+    public ResponseEntity<?> getPetByTipo(String tipo) {
         if(repository.getPetByTipo(tipo).isEmpty())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pets do tipo " + tipo + " não encontrado");
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("Pets do tipo " + tipo + " não encontrado");
         else{
-            return repository.getPetByTipo(tipo);
+            return ResponseEntity.ok().body(repository.getPetByTipo(tipo));
         }
     }
 
     @Override
-    public List<Pet> getPetByEspecie(String especie) {
+    public ResponseEntity<?> getPetByEspecie(String especie) {
         if(repository.getPetByEspecie(especie).isEmpty())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pets da espécie " + especie + " não encontrado");
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("Pets da espécie " + especie + " não encontrado");
 
-        return repository.getPetByEspecie(especie);
+        return ResponseEntity.ok().body(repository.getPetByEspecie(especie));
     }
 
     @Override
-    public List<Pet> getPetByIdade(String idade) {
+    public ResponseEntity<?> getPetByIdade(String idade) {
         if(repository.getPetByIdade(idade).isEmpty())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pets com idade " + idade + " não encontrado");
-        return repository.getPetByIdade(idade);
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("Pets com idade " + idade + " não encontrado");
+        return ResponseEntity.ok().body(repository.getPetByIdade(idade));
     }
 
     @Override
-    public List<Pet> getPetByStatus(String status) {
+    public ResponseEntity<?> getPetByStatus(String status) {
         if(repository.getPetByStatus(status).isEmpty())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pets com status " + status + " não encontrado");
-        return repository.getPetByStatus(status);
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("Pets com status " + status + " não encontrado");
+        return ResponseEntity.ok().body(repository.getPetByStatus(status));
     }
 
     @Override
-    public List<Pet> getPetByRaca(String raca) {
+    public ResponseEntity<?> getPetByRaca(String raca) {
         if (repository.getPetByRaca(raca).isEmpty())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pets com a raca " + raca + " não encontrado");
-        return repository.getPetByRaca(raca);
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("Pets com a raca " + raca + " não encontrado");
+        return ResponseEntity.ok().body(repository.getPetByRaca(raca));
     }
 }

@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface PetRepo extends JpaRepository<Pet, Long> {
 
     @Query(value = "select * from pet where nome = :nome", nativeQuery = true)
-    List<Pet> getPetByName(String nome);
+    List<Pet> getPetByNome(String nome);
 
     @Query(value = "select * from pet where genero = :genero", nativeQuery = true)
     List<Pet> getPetByGenero(String genero);
