@@ -35,3 +35,6 @@ Para aceder a documentação da api via swagger, digita no browser o seguinte en
 São necessários os seguintes pré-requisitos para o desenvolvimento e execução do projecto:
   - Java 8 ou superiores;
   - Apache Maven 3.6.3 ou superiores - para gestão de dependências
+  
+# Status do projecto
+Em desenvolvimento :warning:
